@@ -1,0 +1,5 @@
+{
+  "name": "Global Free Transcription",
+  "description": "A free web application for global audio and video transcription using Gemini.",
+  "requestFramePermissions": ["microphone"]
+}
