@@ -144,12 +144,12 @@ export default function App() {
         const audioPart = await fileToGenerativePart(inputBlob!, mimeType);
         parts = [audioPart, { text: prompt }];
       } else if (urlInput) {
-        parts = [{ text: `${prompt}\n\nURL: ${urlInput}` }];
+        parts = [{ text: prompt }, { text: `URL: ${urlInput}` }];
         tools = [{ urlContext: {} }];
       }
 
       const response = await ai.models.generateContent({
-        model: 'gemini-3-flash-preview',
+        model: 'gemini-2.0-flash',
         contents: { parts },
         config: tools ? { tools } : undefined,
       });
