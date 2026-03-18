@@ -5,8 +5,8 @@ import {
   BarChart3, Settings, Info
 } from 'lucide-react';
 
-// API base URL (backend server)
-const API_BASE = 'http://localhost:3001/api';
+// API base URL - uses Vite proxy to backend
+const API_BASE = '/api';
 
 // Types
 interface TranscriptionResult {
