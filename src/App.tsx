@@ -16,6 +16,9 @@ export default function App() {
   const [copied, setCopied] = useState(false);
   const [mode, setMode] = useState<'transcribe' | 'translate'>('transcribe');
 
+  const apiKey = process.env.GEMINI_API_KEY;
+  const isApiKeyMissing = !apiKey || apiKey === 'MY_GEMINI_API_KEY' || apiKey.trim() === '';
+
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
   const timerRef = useRef<number | null>(null);
@@ -193,6 +196,25 @@ export default function App() {
           <h1 className="text-4xl font-bold tracking-tight mb-3">Global Transcription</h1>
           <p className="text-gray-500 text-lg">Free, fast, and accurate transcription powered by Gemini AI.</p>
         </header>
+
+        {isApiKeyMissing && (
+          <div className="mb-8 p-6 bg-amber-50 border border-amber-200 rounded-2xl flex flex-col sm:flex-row items-start gap-4 shadow-sm">
+            <div className="p-3 bg-amber-100 text-amber-600 rounded-xl shrink-0">
+              <AlertCircle className="w-6 h-6" />
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold text-amber-900 mb-1">API Key Required</h3>
+              <p className="text-amber-800 mb-3">
+                To use this app, you need to provide your own Gemini API key. The app is currently using a placeholder or missing key.
+              </p>
+              <ol className="list-decimal list-inside text-sm text-amber-700 space-y-1">
+                <li>Click the <strong>Secrets</strong> icon (🔑) in the left sidebar of AI Studio.</li>
+                <li>Find or create the secret named <code>GEMINI_API_KEY</code>.</li>
+                <li>Paste your valid Gemini API key (get one free at <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noreferrer" className="underline font-medium hover:text-amber-900">Google AI Studio</a>).</li>
+              </ol>
+            </div>
+          </div>
+        )}
 
         <div className="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden mb-8">
           <div className="p-8">
